@@ -19,7 +19,7 @@ Large Language Models (LLMs) excel at processing and generating text from extens
 
 Consider a basic example: asking Claude to extract details from an active Amazon product page is impossible without additional tools. Why? Because it doesn't have the inherent capability to browse the internet or trigger external actions.
 
-![claude-without-mcp](https://github.com/luminati-io/web-scraping-mcp/blob/main/images/claude-without-mcp.png)
+![claude-without-mcp](https://github.com/luminati-io/web-scraping-with-mcp/blob/main/images/claude-without-mcp.png)
 
 Without supplementary tooling, LLMs cannot perform practical tasks that depend on real-time data or integration with external systems.
 
@@ -27,7 +27,7 @@ This is where [Anthropic's Model Context Protocol (MCP)](https://www.anthropic.c
 
 Here's the difference in action. After integrating a custom MCP server, we successfully extracted structured Amazon product information directly through Claude:
 
-![claude-amazon-product-data-extraction-results](https://github.com/luminati-io/web-scraping-mcp/blob/main/images/claude-amazon-product-data-extraction-results.png)
+![claude-amazon-product-data-extraction-results](https://github.com/luminati-io/web-scraping-with-mcp/blob/main/images/claude-amazon-product-data-extraction-results.png)
 
 ## The Importance of MCP
 
@@ -62,7 +62,7 @@ MCP operates through a client-server architecture with three key components:
 
 Here's the MCP architecture diagram:
 
-![mcp-architecture-diagram-host-client-server-connections](https://github.com/luminati-io/web-scraping-mcp/blob/main/images/mcp-architecture-diagram-host-client-server-connections.png)
+![mcp-architecture-diagram-host-client-server-connections](https://github.com/luminati-io/web-scraping-with-mcp/blob/main/images/mcp-architecture-diagram-host-client-server-connections.png)
 
 _Image Source: [Model Context Protocol](https://modelcontextprotocol.io/introduction)_
 
@@ -81,7 +81,7 @@ In short, the workflow operates as follows:
 
 Let's construct a Python MCP server to extract data from Amazon product pages.
 
-![amazon-product-page-example](https://github.com/luminati-io/web-scraping-mcp/blob/main/images/amazon-product-page-example.png)
+![amazon-product-page-example](https://github.com/luminati-io/web-scraping-with-mcp/blob/main/images/amazon-product-page-example.png)
 
 This server will offer two tools: one to download HTML and another to extract organized information. You'll interact with the server via an LLM client in Cursor or Claude Desktop.
 
@@ -495,7 +495,7 @@ Now that the server script is ready, let's connect it to MCP clients like Claude
 
 **Step 2:** Navigate to `Settings` -> `Developer` -> `Edit Config`. This will open the `claude_desktop_config.json` file in your default text editor.
 
-![claude-desktop-settings-menu-navigation](https://github.com/luminati-io/web-scraping-mcp/blob/main/images/claude-desktop-settings-menu-navigation.png)
+![claude-desktop-settings-menu-navigation](https://github.com/luminati-io/web-scraping-with-mcp/blob/main/images/claude-desktop-settings-menu-navigation.png)
 
 **Step 3:** Add an entry for your server under the `mcpServers` key. Make sure to replace the path in `args` with the absolute path to your `amazon_scraper_mcp.py` file.
 
@@ -514,21 +514,21 @@ Now that the server script is ready, let's connect it to MCP clients like Claude
 
 **Step 5:** In Claude Desktop, you should now see a small tools icon (like a hammer 🔨) in the chat input area.
 
-![claude-desktop-mcp-tools-icon-interface](https://github.com/luminati-io/web-scraping-mcp/blob/main/images/claude-desktop-mcp-tools-icon-interface.png)
+![claude-desktop-mcp-tools-icon-interface](https://github.com/luminati-io/web-scraping-with-mcp/blob/main/images/claude-desktop-mcp-tools-icon-interface.png)
 
 **Step 6:** Clicking it should list your "Amazon Product Scraper" with its `fetch_page` and `extract_info` tools.
 
-![claude-available-mcp-tools-dialog-amazon-scraper](https://github.com/luminati-io/web-scraping-mcp/blob/main/images/claude-available-mcp-tools-dialog-amazon-scraper.png)
+![claude-available-mcp-tools-dialog-amazon-scraper](https://github.com/luminati-io/web-scraping-with-mcp/blob/main/images/claude-available-mcp-tools-dialog-amazon-scraper.png)
 
 **Step 7:** Send a Prompt, for example: _"Get the current price, original price, and rating for this Amazon product: [https://www.amazon.com/dp/B09C13PZX7](https://www.amazon.com/dp/B09C13PZX7)"._
 
 **Step 8:** Claude will detect that this requires external tools and prompt you for permission to run `fetch_page` first and then `extract_info`. Click "Allow for this chat" for each tool.
 
-![mcp-permission-dialog-fetch-page-amazon-tool](https://github.com/luminati-io/web-scraping-mcp/blob/main/images/mcp-permission-dialog-fetch-page-amazon-tool.png)
+![mcp-permission-dialog-fetch-page-amazon-tool](https://github.com/luminati-io/web-scraping-with-mcp/blob/main/images/mcp-permission-dialog-fetch-page-amazon-tool.png)
 
 **Step 9:** After granting permissions, the MCP server will execute the tools. Claude will then receive the structured data and present it in the chat.
 
-![claude-amazon-product-data-extraction-results](https://github.com/luminati-io/web-scraping-mcp/blob/main/images/claude-amazon-product-data-extraction-results-2.png)
+![claude-amazon-product-data-extraction-results](https://github.com/luminati-io/web-scraping-with-mcp/blob/main/images/claude-amazon-product-data-extraction-results-2.png)
 
 ### Setting Up with Cursor
 
@@ -538,15 +538,15 @@ The process for Cursor (an AI-first IDE) is similar.
 
 **Step 2:** Go to `Settings` ⚙️ and navigate the `MCP` section.
 
-![cursor-ide-add-new-global-mcp-server-settings](https://github.com/luminati-io/web-scraping-mcp/blob/main/images/cursor-ide-add-new-global-mcp-server-settings.png)
+![cursor-ide-add-new-global-mcp-server-settings](https://github.com/luminati-io/web-scraping-with-mcp/blob/main/images/cursor-ide-add-new-global-mcp-server-settings.png)
 
 **Step 3:** Click "+Add a new global MCP Server". This will open the `mcp.json` configuration file. Add an entry for your server, again using the **absolute path** to your script.
 
-![cursor-mcp-json-configuration-file-amazon-scraper](https://github.com/luminati-io/web-scraping-mcp/blob/main/images/cursor-mcp-json-configuration-file-amazon-scraper.png)
+![cursor-mcp-json-configuration-file-amazon-scraper](https://github.com/luminati-io/web-scraping-with-mcp/blob/main/images/cursor-mcp-json-configuration-file-amazon-scraper.png)
 
 **Step 4:** Save the `mcp.json` file and you should see your "amazon\_product\_scraper" listed, hopefully with a green dot indicating it's running and connected.
 
-![cursor-ide-configured-amazon-scraper-mcp-settings](https://github.com/luminati-io/web-scraping-mcp/blob/main/images/cursor-ide-configured-amazon-scraper-mcp-settings.png)
+![cursor-ide-configured-amazon-scraper-mcp-settings](https://github.com/luminati-io/web-scraping-with-mcp/blob/main/images/cursor-ide-configured-amazon-scraper-mcp-settings.png)
 
 **Step 5:** Use Cursor's chat feature (`Cmd+l` or `Ctrl+l`).
 
@@ -556,7 +556,7 @@ The process for Cursor (an AI-first IDE) is similar.
 
 **Step 8:** The Cursor will display the interaction flow, showing the calls to your MCP tools and finally presenting the structured JSON data returned by your `extract_info` tool.
 
-![cursor-ide-amazon-product-data-extraction-json-results](https://github.com/luminati-io/web-scraping-mcp/blob/main/images/cursor-ide-amazon-product-data-extraction-json-results.png)
+![cursor-ide-amazon-product-data-extraction-json-results](https://github.com/luminati-io/web-scraping-with-mcp/blob/main/images/cursor-ide-amazon-product-data-extraction-json-results.png)
 Here's an example of JSON output from Cursor:
 
 ```json
@@ -634,17 +634,17 @@ Before starting your Bright Data MCP integration, verify you have the following:
 
 **Step 5:** Hover over the hammer icon (🔨) in Claude Desktop. You should now see multiple MCP tools available.
 
-![claude-desktop-interface-with-mcp-tools-available](https://github.com/luminati-io/web-scraping-mcp/blob/main/images/claude-desktop-interface-with-mcp-tools-available.png)
+![claude-desktop-interface-with-mcp-tools-available](https://github.com/luminati-io/web-scraping-with-mcp/blob/main/images/claude-desktop-interface-with-mcp-tools-available.png)
 
 Let's attempt to extract data from Zillow, a website known for potentially restricting scrapers. Prompt Claude with "_Extract key property data in JSON format from this Zillow URL: [https://www.zillow.com/apartments/arverne-ny/the-tides-at-arverne-by-the-sea/ChWHPZ/](https://www.zillow.com/apartments/arverne-ny/the-tides-at-arverne-by-the-sea/ChWHPZ/)_"
 
-![bright-data-mcp-zillow-property-extraction-process](https://github.com/luminati-io/web-scraping-mcp/blob/main/images/bright-data-mcp-zillow-property-extraction-process.png)
+![bright-data-mcp-zillow-property-extraction-process](https://github.com/luminati-io/web-scraping-with-mcp/blob/main/images/bright-data-mcp-zillow-property-extraction-process.png)
 
 Permit Claude to utilize the necessary Bright Data MCP tools. Bright Data's MCP server will manage the underlying complexities (proxy rotation, JavaScript rendering via Scraping Browser if required).
 
 Bright Data's server conducts the extraction and delivers structured data, which Claude presents.
 
-![zillow-property-data-json-structure-bright-data-mcp](https://github.com/luminati-io/web-scraping-mcp/blob/main/images/zillow-property-data-json-structure-bright-data-mcp.png)
+![zillow-property-data-json-structure-bright-data-mcp](https://github.com/luminati-io/web-scraping-with-mcp/blob/main/images/zillow-property-data-json-structure-bright-data-mcp.png)
 
 Here's a sample of the potential output:
 
@@ -669,7 +669,7 @@ Here's a sample of the potential output:
 
 A more straightforward query: "_Give me the titles of the latest 5 news articles from Hacker News_".
 
-![hacker-news-latest-articles-mcp-extraction-results](https://github.com/luminati-io/web-scraping-mcp/blob/main/images/hacker-news-latest-articles-mcp-extraction-results.png)
+![hacker-news-latest-articles-mcp-extraction-results](https://github.com/luminati-io/web-scraping-with-mcp/blob/main/images/hacker-news-latest-articles-mcp-extraction-results.png)
 
 This demonstrates how Bright Data's MCP server simplifies accessing even dynamic or heavily secured web content directly within your AI workflow.
 
